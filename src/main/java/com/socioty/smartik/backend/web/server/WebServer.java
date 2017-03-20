@@ -33,15 +33,28 @@ public class WebServer implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
+		test();
+	}
+	
+	private void test() {
+		deleteAllAccounts();
+		createTestAccounts();
+		findAllAccounts();
+	}
+	
+	private void deleteAllAccounts() {
 		repository.deleteAll();
-
-		// save a account
+	}
+	
+	private void createTestAccounts() {
 		repository.save(new Account("willian.campos@gmail.com",
 				new DeviceMap(Lists.newArrayList(
 						new Floor(Sets.newHashSet(
 								new Room("Living room", Sets.newHashSet("Bulb 1", "Bulb 2", "Thermostat")))),
 						new Floor(Sets.newHashSet(new Room("Bedroom", Sets.newHashSet("Bulb", "TV"))))))));
-
+	}
+	
+	private void findAllAccounts() {
 		// fetch all accounts
 		System.out.println("Accounts found with findAll():");
 		System.out.println("-------------------------------");
@@ -49,6 +62,5 @@ public class WebServer implements CommandLineRunner {
 			System.out.println(account);
 		}
 		System.out.println();
-
 	}
 }
