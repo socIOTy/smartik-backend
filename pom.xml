@@ -85,7 +85,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>br.com.noxxonsat.tripconsolidator.web.server.WebServer</mainClass>
+					<mainClass>com.smartik.backend.web.server.WebServer</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -95,7 +95,7 @@
 				<configuration>
 					<appName>backend</appName>
 					<processTypes>
-						<web>java -jar target/backend-0.0.1-SNAPSHOT.jar</web>
+						<web>java -jar target/backend.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
