@@ -11,7 +11,7 @@ public class Account {
 	private String email;
 	private DeviceMap deviceMap;
 
-	public Account() {
+	protected Account() {
 	}
 
 	public Account(final String email, final DeviceMap deviceMap) {

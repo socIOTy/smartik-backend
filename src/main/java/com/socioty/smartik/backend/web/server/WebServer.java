@@ -1,7 +1,5 @@
 package com.socioty.smartik.backend.web.server;
 
-import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,9 +9,11 @@ import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import com.google.common.collect.Sets;
 import com.socioty.smartik.backend.model.Account;
 import com.socioty.smartik.backend.model.DeviceMap;
 import com.socioty.smartik.backend.model.Floor;
+import com.socioty.smartik.backend.model.Room;
 import com.socioty.smartik.backend.repositories.AccountRepository;
 
 import jersey.repackaged.com.google.common.collect.Lists;
@@ -38,9 +38,9 @@ public class WebServer implements CommandLineRunner {
 		// save a account
 		repository.save(new Account("willian.campos@gmail.com",
 				new DeviceMap(Lists.newArrayList(
-						new Floor(Collections.singletonMap("Living room",
-								Lists.newArrayList("Bulb 1", "Bulb 2", "Thermostat"))),
-						new Floor(Collections.singletonMap("Bedroom", Lists.newArrayList("Bulb", "TV")))))));
+						new Floor(Sets.newHashSet(
+								new Room("Living room", Sets.newHashSet("Bulb 1", "Bulb 2", "Thermostat")))),
+						new Floor(Sets.newHashSet(new Room("Bedroom", Sets.newHashSet("Bulb", "TV"))))))));
 
 		// fetch all accounts
 		System.out.println("Accounts found with findAll():");

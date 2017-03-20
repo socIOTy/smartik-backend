@@ -1,19 +1,24 @@
 package com.socioty.smartik.backend.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.base.MoreObjects;
 
 public class DeviceMap {
 
-	public List<Floor> floors;
+	private List<Floor> floors;
 
-	public DeviceMap() {
+	protected DeviceMap() {
 	}
 
 	public DeviceMap(final List<Floor> floors) {
 		this.floors = new ArrayList<>(floors);
+	}
+	
+	public List<Floor> getFloors() {
+		return Collections.unmodifiableList(floors);
 	}
 
 	@Override

@@ -1,24 +1,28 @@
 package com.socioty.smartik.backend.model;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.common.base.MoreObjects;
 
 public class Floor {
 
-	public Map<String, List<String>> devicesByRoom;
+	private Set<Room> rooms;
 
-	public Floor() {
+	protected Floor() {
 	}
 
-	public Floor(final Map<String, List<String>> devicesByRoom) {
-		this.devicesByRoom = new HashMap<>(devicesByRoom);
+	public Floor(final Set<Room> rooms) {
+		this.rooms = new HashSet<>(rooms);
+	}
+	
+	public Set<Room> getRooms() {
+		return Collections.unmodifiableSet(rooms);
 	}
 
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this).add("devicesByRoom", devicesByRoom).toString();
+		return MoreObjects.toStringHelper(this).add("rooms", rooms).toString();
 	}
 }
