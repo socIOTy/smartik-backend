@@ -1,9 +1,9 @@
 package com.socioty.smartik.backend.web.resource;
 
-import javax.websocket.server.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,8 +31,8 @@ public class AccountResource {
 		return Response.ok().build();
 	}
 
-	@Path("/{email}")
 	@GET
+	@Path("/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGet(@PathParam("email") final String email) {
 		return Response.ok().entity(acccuntRepository.findByEmail(email)).build();
