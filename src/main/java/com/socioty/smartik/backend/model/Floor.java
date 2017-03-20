@@ -1,4 +1,4 @@
-package com.smartik.backend.model;
+package com.socioty.smartik.backend.model;
 
 import java.util.HashMap;
 import java.util.List;

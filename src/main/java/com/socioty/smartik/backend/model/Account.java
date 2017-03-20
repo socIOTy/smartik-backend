@@ -1,4 +1,4 @@
-package com.smartik.backend.model;
+package com.socioty.smartik.backend.model;
 
 import org.springframework.data.annotation.Id;
 

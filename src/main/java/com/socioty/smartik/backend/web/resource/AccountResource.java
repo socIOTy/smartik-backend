@@ -1,4 +1,4 @@
-package com.smartik.backend.web.resource;
+package com.socioty.smartik.backend.web.resource;
 
 import javax.websocket.server.PathParam;
 import javax.ws.rs.GET;
@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.smartik.backend.repositories.AccountRepository;
+import com.socioty.smartik.backend.repositories.AccountRepository;
 
 @Path("account")
 @Controller

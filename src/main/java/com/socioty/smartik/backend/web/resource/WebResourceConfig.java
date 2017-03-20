@@ -1,4 +1,4 @@
-package com.smartik.backend.web.resource;
+package com.socioty.smartik.backend.web.resource;
 
 import javax.ws.rs.ApplicationPath;
 
