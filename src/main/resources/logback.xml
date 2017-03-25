@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <property name="LOG_FILE" value="spring.log"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <appender name="FILE_BACKEND"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+		<file>backend.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>rest.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	<logger name="com.socioty.smartik.backend.background" level="INFO">
+		<appender-ref ref="FILE_BACKEND" />
+	</logger>
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
