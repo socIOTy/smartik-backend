@@ -14,18 +14,9 @@ public class WebServer implements CommandLineRunner {
 	public static void main(final String[] args) throws Exception {
 		SpringApplication.run(WebServer.class, args);
 	}
-
+	
 	@Override
 	public void run(String... arg0) throws Exception {
 	}
-
-	// private void createTestAccounts() {
-	// repository.save(new Account("willian.campos@gmail.com",
-	// new DeviceMap(Lists.newArrayList(
-	// new Floor(Sets.newHashSet(
-	// new Room("Living room",
-	// Sets.newHashSet("aa251f8f408a4b09ace604553cfc9f2d")))),
-	// new Floor(Sets.newHashSet(new Room("Bedroom", Sets.newHashSet())))))));
-	// }
 
 }
