@@ -37,4 +37,5 @@ public class AccountResource {
 	public Response doGet(@PathParam("email") final String email) {
 		return Response.ok().entity(acccuntRepository.findByEmail(email)).build();
 	}
+	
 }

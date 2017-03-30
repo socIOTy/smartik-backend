@@ -26,6 +26,14 @@ public class Room {
 	public Set<String> getDeviceIds() {
 		return Collections.unmodifiableSet(deviceIds);
 	}
+	
+	public void addDevice(final String deviceId) {
+		this.deviceIds.add(deviceId);
+	}
+	
+	public boolean removeDevice(final String deviceId) {
+		return this.deviceIds.remove(deviceId);
+	}
 
 	@Override
 	public String toString() {

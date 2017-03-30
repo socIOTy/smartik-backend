@@ -11,5 +11,6 @@ public class WebResourceConfig extends ResourceConfig {
 	
 	public WebResourceConfig() {
 		register(AccountResource.class);
+		register(DeviceResource.class);
 	}
 }
