@@ -17,4 +17,15 @@ public final class ModelUtils {
 		
 		return null;
 	}
+	
+	public static boolean removeDevice(final DeviceMap map, final String deviceId) {
+		for (final Floor floor : map.getFloors()) {
+			for (final Room room : floor.getRooms()) {
+				if (room.removeDevice(deviceId)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

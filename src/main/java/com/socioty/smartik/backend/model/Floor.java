@@ -19,7 +19,7 @@ public class Floor {
 	
 	public Set<Room> getRooms() {
 		return Collections.unmodifiableSet(rooms);
-	}
+	}	
 
 	@Override
 	public String toString() {
