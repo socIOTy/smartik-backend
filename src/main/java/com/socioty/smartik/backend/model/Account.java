@@ -30,6 +30,10 @@ public class Account {
 	public DeviceMap getDeviceMap() {
 		return deviceMap;
 	}
+	
+	public void setDeviceMap(final DeviceMap deviceMap) {
+		this.deviceMap = deviceMap;
+	}
 
 	@Override
 	public String toString() {

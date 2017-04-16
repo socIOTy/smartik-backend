@@ -20,6 +20,10 @@ public class DeviceMap {
 	public List<Floor> getFloors() {
 		return Collections.unmodifiableList(floors);
 	}
+	
+	public void update(final List<Floor> floors) {
+		this.floors = new ArrayList<>(floors);
+	}
 
 	@Override
 	public String toString() {

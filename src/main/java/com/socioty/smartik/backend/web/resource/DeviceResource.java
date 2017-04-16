@@ -1,5 +1,7 @@
 package com.socioty.smartik.backend.web.resource;
 
+import static com.socioty.smartik.backend.util.Utils.authenticatedEmail;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.OPTIONS;
@@ -24,7 +26,7 @@ public class DeviceResource {
 
 	@XmlRootElement
 	@SuppressWarnings("unused")
-	private static class AddDevice {
+	private static class AddDeviceJson {
 		private String deviceId;
 		private Integer floorNumber;
 		private String roomName;
@@ -66,11 +68,11 @@ public class DeviceResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response doPost(final AddDevice addDevice) {
-		// TODO retrieve email from authentication
-		final String email = "willian.campos@gmail.com";
-
-		final Account account = accountRepository.findByEmail(email);
+	public Response doPost(final AddDeviceJson addDevice) {
+		final Account account = accountRepository.findByEmail(authenticatedEmail());
+		if (account == null) {
+			return Response.status(404).build();
+		}
 		ModelUtils.getRoom(account.getDeviceMap().getFloors().get(addDevice.floorNumber).getRooms(), addDevice.roomName)
 				.addDevice(addDevice.deviceId);
 		return Response.ok().entity(accountRepository.save(account)).build();
@@ -79,16 +81,11 @@ public class DeviceResource {
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doPost(@QueryParam("deviceId") final String deviceId) {
-		// TODO retrieve email from authentication
-		final String email = "willian.campos@gmail.com";
-
-		final Account account = accountRepository.findByEmail(email);
-
-		if (ModelUtils.removeDevice(account.getDeviceMap(), deviceId)) {
-			return Response.ok().entity(accountRepository.save(account)).build();
-		}
-		
-		return Response.status(404).build();
-
+			final Account account = accountRepository.findByEmail(authenticatedEmail());
+			if (account != null && ModelUtils.removeDevice(account.getDeviceMap(), deviceId)) {
+				return Response.ok().entity(accountRepository.save(account)).build();
+			}
+			
+			return Response.status(404).build();
 	}
 }
