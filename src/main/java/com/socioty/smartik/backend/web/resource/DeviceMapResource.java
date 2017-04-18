@@ -75,12 +75,14 @@ public class DeviceMapResource {
 		private static final Function<RoomJson, Room> transformFunction =  new Function<RoomJson, Room>()  {
 			@Override
 			public Room apply(final RoomJson original) {
-				return new Room(original.name, original.deviceIds);
+				return new Room(original.name, original.imageBytes, original.deviceIds);
 			}
 		};
 		
 		private String name;
 		private Set<String> deviceIds;
+		private byte[] imageBytes;
+		
 		public String getName() {
 			return name;
 		}
@@ -92,6 +94,12 @@ public class DeviceMapResource {
 		}
 		public void setDeviceIds(Set<String> deviceIds) {
 			this.deviceIds = deviceIds;
+		}
+		public byte[] getImageBytes() {
+			return imageBytes;
+		}
+		public void setImageBytes(byte[] imageBytes) {
+			this.imageBytes = imageBytes;
 		}
 	}
 

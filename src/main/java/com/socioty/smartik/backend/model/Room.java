@@ -10,17 +10,27 @@ public class Room {
 
 	private String name;
 	private Set<String> deviceIds;
+	private byte[] imageBytes;
 
 	protected Room() {
 	}
 
-	public Room(final String name, final Set<String> deviceIds) {
+	public Room(final String name, final byte[] imageBytes, final Set<String> deviceIds) {
 		this.name = name;
+		this.imageBytes = imageBytes;
 		this.deviceIds = new HashSet<>(deviceIds);
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public byte[] getImageBytes() {
+		return imageBytes;
+	}
+	
+	public void setImageBytes(byte[] imageBytes) {
+		this.imageBytes = imageBytes;
 	}
 
 	public Set<String> getDeviceIds() {
