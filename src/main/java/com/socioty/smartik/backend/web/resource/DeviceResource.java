@@ -9,7 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -74,6 +73,7 @@ public class DeviceResource {
 		if (account == null) {
 			return Response.status(404).build();
 		}
+		ModelUtils.removeDevice(account.getDeviceMap(), addDevice.deviceId);
 		ModelUtils.getRoom(account.getDeviceMap().getFloors().get(addDevice.floorNumber).getRooms(), addDevice.roomName)
 				.addDevice(addDevice.deviceId);
 		return Response.ok().entity(accountRepository.save(account)).build();
@@ -83,11 +83,11 @@ public class DeviceResource {
 	@Path("/{deviceId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doPost(@PathParam("deviceId") final String deviceId) {
-			final Account account = accountRepository.findByEmail(authenticatedEmail());
-			if (account != null && ModelUtils.removeDevice(account.getDeviceMap(), deviceId)) {
-				return Response.ok().entity(accountRepository.save(account)).build();
-			}
-			
-			return Response.status(404).build();
+		final Account account = accountRepository.findByEmail(authenticatedEmail());
+		if (account != null && ModelUtils.removeDevice(account.getDeviceMap(), deviceId)) {
+			return Response.ok().entity(accountRepository.save(account)).build();
+		}
+
+		return Response.status(404).build();
 	}
 }
