@@ -7,6 +7,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -79,8 +80,9 @@ public class DeviceResource {
 	}
 
 	@DELETE
+	@Path("/{deviceId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response doPost(@QueryParam("deviceId") final String deviceId) {
+	public Response doPost(@PathParam("deviceId") final String deviceId) {
 			final Account account = accountRepository.findByEmail(authenticatedEmail());
 			if (account != null && ModelUtils.removeDevice(account.getDeviceMap(), deviceId)) {
 				return Response.ok().entity(accountRepository.save(account)).build();
