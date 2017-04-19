@@ -13,9 +13,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.amqp.rabbit.connection.SimpleResourceHolder;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.Gson;
+import com.socioty.smartik.backend.configuration.RabbitConfiguration.Parameter;
 import com.socioty.smartik.backend.model.Account;
 import com.socioty.smartik.backend.model.ModelUtils;
 import com.socioty.smartik.backend.repositories.AccountRepository;
@@ -56,6 +60,9 @@ public class DeviceResource {
 		}
 
 	}
+	
+	@Autowired
+	private RabbitTemplate template;
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -73,9 +80,12 @@ public class DeviceResource {
 		if (account == null) {
 			return Response.status(404).build();
 		}
-		ModelUtils.removeDevice(account.getDeviceMap(), addDevice.deviceId);
+		final boolean removed = ModelUtils.removeDevice(account.getDeviceMap(), addDevice.deviceId);
 		ModelUtils.getRoom(account.getDeviceMap().getFloors().get(addDevice.floorNumber).getRooms(), addDevice.roomName)
 				.addDevice(addDevice.deviceId);
+		if (!removed) {
+			sendMessage("producer.connection.factory", "messages", new Parameter("CREATE", addDevice.deviceId));
+		}
 		return Response.ok().entity(accountRepository.save(account)).build();
 	}
 
@@ -85,9 +95,19 @@ public class DeviceResource {
 	public Response doPost(@PathParam("deviceId") final String deviceId) {
 		final Account account = accountRepository.findByEmail(authenticatedEmail());
 		if (account != null && ModelUtils.removeDevice(account.getDeviceMap(), deviceId)) {
+			sendMessage("producer.connection.factory", "messages", new Parameter("DELETE", deviceId));
 			return Response.ok().entity(accountRepository.save(account)).build();
 		}
 
 		return Response.status(404).build();
+	}
+	
+	private void sendMessage(final String factoryName, final String queueName, final Object message) {
+		try {
+			SimpleResourceHolder.bind(template.getConnectionFactory(), factoryName);
+			template.convertAndSend(queueName, new Gson().toJson(message));
+		} finally {
+			SimpleResourceHolder.unbind(template.getConnectionFactory());
+		}
 	}
 }

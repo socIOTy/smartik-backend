@@ -11,4 +11,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.socioty.smartik.backend.web.server.WebServer"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="backend"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-DCLOUDAMQP_URL=amqp://gwxlogcd:7zbGCl0mEme8Yhr6-8WOe6Wut0S_UYdX@crocodile.rmq.cloudamqp.com/gwxlogcd"/>
 </launchConfiguration>

@@ -26,7 +26,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @EnableAutoConfiguration
 @EnableMongoRepositories(basePackages = { "com.socioty.smartik.backend.repositories" })
-@ComponentScan(basePackages = { "com.socioty.smartik.backend.web.resource" })
+@ComponentScan(basePackages = { "com.socioty.smartik.backend.web.resource", "com.socioty.smartik.backend.configuration" })
 public class WebServer implements CommandLineRunner {
 
 	public static void main(final String[] args) throws Exception {
